@@ -188,7 +188,9 @@ function Main() {
           web3State.network !== null &&
           web3State.account !== ethers.constants.AddressZero && (
             <>
-              <Text>connect to ${web3State.network.name}</Text>
+              <Text color="green.500">
+                connected to {web3State.network.name}
+              </Text>
               <Text>account: {web3State.account}</Text>
 
               <Text>balance: {web3State.balance}</Text>
