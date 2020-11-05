@@ -113,7 +113,7 @@ function Main() {
     }
   }, [web3State.isWeb3])
 
-  //If not connected to metamask can connect with button
+  //If not connected to metamask connect with button
   useEffect(() => {
     const connect2MetaMask = async () => {
       try {
