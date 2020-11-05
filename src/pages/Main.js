@@ -15,8 +15,6 @@ import {
 import { ethers } from 'ethers'
 import { isConnected2MetaMask } from '../utils/eth-utils'
 
-const myAddr = '0x57D401B8502bC5CBBaAfD2564236dE4571165051'
-
 // send `transaction`, so ethers, from signer address
 const sendTransaction = async (signer, provider, transaction) => {
   try {
@@ -78,9 +76,10 @@ const dappReducer = (state, action) => {
 const initialDappState = {
   donateValue: 0.04,
   connecting: false,
+  myAddr: '0x57D401B8502bC5CBBaAfD2564236dE4571165051',
 }
 
-function App() {
+function Main() {
   const [web3State, web3Dispatch] = useReducer(web3Reducer, initialWeb3State)
   const [dappState, dappDispatch] = useReducer(dappReducer, initialDappState)
 
@@ -225,7 +224,7 @@ function App() {
           <Button
             onClick={async () =>
               await sendTransaction(web3State.signer, web3State.provider, {
-                to: myAddr,
+                to: dappState.myAddr,
                 value: ethers.utils.parseEther(dappState.donateValue),
               })
             }
@@ -241,4 +240,4 @@ function App() {
   )
 }
 
-export default App
+export default Main
