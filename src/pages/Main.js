@@ -200,40 +200,45 @@ function Main() {
                   <Text>Network id: {web3State.network.chainId}</Text>
                 </>
               )}
+
+              <HStack>
+                <NumberInput
+                  value={dappState.donateValue}
+                  defaultValue={initialDappState.donateValue}
+                  precision={3}
+                  step={0.02}
+                  min={0}
+                  max={web3State.balance}
+                  onChange={(currentDonateValue) => {
+                    dappDispatch({
+                      type: 'SET_donateValue',
+                      donateValue: currentDonateValue,
+                    })
+                  }}
+                >
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+                <Button
+                  onClick={async () =>
+                    await sendTransaction(
+                      web3State.signer,
+                      web3State.provider,
+                      {
+                        to: dappState.myAddr,
+                        value: ethers.utils.parseEther(dappState.donateValue),
+                      }
+                    )
+                  }
+                >
+                  Donate {dappState.donateValue} Ether
+                </Button>
+              </HStack>
             </>
           )}
-        <HStack>
-          <NumberInput
-            value={dappState.donateValue}
-            defaultValue={initialDappState.donateValue}
-            precision={3}
-            step={0.02}
-            min={0}
-            max={web3State.balance}
-            onChange={(currentDonateValue) => {
-              dappDispatch({
-                type: 'SET_donateValue',
-                donateValue: currentDonateValue,
-              })
-            }}
-          >
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
-          <Button
-            onClick={async () =>
-              await sendTransaction(web3State.signer, web3State.provider, {
-                to: dappState.myAddr,
-                value: ethers.utils.parseEther(dappState.donateValue),
-              })
-            }
-          >
-            Donate {dappState.donateValue} Ether
-          </Button>
-        </HStack>
         {!web3State.isEnabled && (
           <Button onClick={handleOnConnect}>Connect</Button>
         )}
