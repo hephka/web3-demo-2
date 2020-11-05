@@ -108,7 +108,9 @@ function Main() {
         web3Dispatch({ type: 'SET_isEnabled', isEnabled: false })
       }
     }
-    isConnected()
+    if (web3State.isWeb3) {
+      isConnected()
+    }
   }, [web3State.isWeb3])
 
   //If not connected to metamask can connect with button
