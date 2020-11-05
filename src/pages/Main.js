@@ -4,8 +4,6 @@ import {
   Text,
   VStack,
   Button,
-  UnorderedList,
-  ListItem,
   HStack,
   NumberInput,
   NumberInputField,
